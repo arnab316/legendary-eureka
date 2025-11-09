@@ -21,7 +21,10 @@ const handleProfileClick = () => {
     // Add your sign out logic here
   };
   return (
-    <div className="w-10/12 ml-3 relative">
+    <div className="max-w-[calc(100%-1.5rem)] flex justify-center gap-3 ml-3">
+      
+    <div className="w-full">
+
       {/* Top Navigation Bar */}
       <div className="bg-cyan-500 text-white shadow-md mt-3 rounded-md ">
         <div className="container mx-auto flex items-center justify-between px-6 py-3 ">
@@ -66,11 +69,7 @@ const handleProfileClick = () => {
 
         </div>
       </div>
-                {/* Profile Section */}
-         <ProfileSection user={user}
-         onProfileClick={handleProfileClick}
-        onSignOutClick={handleSignOutClick}
-         />
+         
 
       {/* Sub Navigation Bar */}
       <div className="bg-[#af5ae7] text-white shadow-md mt-4 rounded-md h-16 ">
@@ -113,6 +112,16 @@ const handleProfileClick = () => {
           </NavigationMenu>
         </div>
       </div>
+    </div>
+    {/* Profile Section */}
+      <div>
+
+        <ProfileSection user={user}
+         onProfileClick={handleProfileClick}
+        onSignOutClick={handleSignOutClick}
+         />
+         </div>
+      
     </div>
   );
 };
