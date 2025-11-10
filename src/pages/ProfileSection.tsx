@@ -8,7 +8,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
   onSignOutClick 
 }) => {
   return (
-    <div className="fixed top-2 right-12  bg-white rounded-lg shadow-lg p-4 z-50 border border-gray-200">
+    <div className=" bg-white rounded-lg shadow-lg p-4 z-50 border border-gray-200">
       <div className="flex items-center gap-3 mb-4">
         <div className="relative">
           <img 

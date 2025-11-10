@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import SearchFactory from "./pages/SearchFactory/SearchFactory";
 import CrossedOffFactories from "./pages/CrossedOffFactories/CrossedOffFactories";
 import PendingApprovalList from "./pages/PendingApproval/PendingApprovalList";
+import OtherTypeLetterReport from "./pages/OtherTypeLetterReport/OtherTypeLetterReport";
 function App() {
  
 
@@ -20,9 +21,7 @@ function App() {
           <Route path="/custom-factory-search" element={<SearchFactory />} />
           <Route path="/CROSSED_OFF" element={<CrossedOffFactories />} />
           <Route path="/pending-approvals" element={<PendingApprovalList />} />
-
-
-
+          <Route path="/other-type-letr-rept-ord" element={<OtherTypeLetterReport />} />
           {/* <Route path="/about" element={<About />} /> */}
         </Route>
       </Routes>

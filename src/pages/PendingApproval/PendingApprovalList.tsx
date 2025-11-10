@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, FileText, StickyNote } from 'lucide-react';
-
+import { Link } from 'react-router-dom'
 // Types
 interface Application {
   id: number;
@@ -170,7 +170,9 @@ const PendingApprovalList: React.FC = () => {
             <span>Home</span>
           </span>
           <span>&gt;</span>
-          <span className="text-blue-600">Dashboard</span>
+          <span className="text-blue-600">
+            <Link to="/">Dashboard</Link>
+          </span>
         </div>
 
         {/* Title */}

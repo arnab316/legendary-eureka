@@ -74,7 +74,11 @@ export const subMenuData = [
     {title: "Amendment", link: "/contact" },
     {title: "Reports", link: "/contact" },
         {title: "Form18", link: "/contact" },
-        {title: "Inspection Report ", link: "/contact" },
+        {title: "Inspection Report ", 
+          submenu:[
+            { title: "Other Type of Letters / Reports / Orders", link: "/other-type-letr-rept-ord" },
+          ]
+         },
 
 ]
 
@@ -88,9 +92,9 @@ export const user = {
     avatar: "/api/placeholder/80/80" // Replace with actual avatar URL
   };
 
+import { type Factory} from '@/types';
 
-
-  export const factoriesData = [
+  export const factoriesData: Factory[] = [
     {
       id: 1,
       name: "M/S RADIANT RUBBER INDUSTRIES",
