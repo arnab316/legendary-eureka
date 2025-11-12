@@ -1,3 +1,4 @@
+import { type Factory} from '@/types';
 export const navData = [
     { title: "EODB", link: "/",
         submenu: [
@@ -72,8 +73,19 @@ export const subMenuData = [
      },
     {title: "Renewal", link: "/seniors" },
     {title: "Amendment", link: "/contact" },
-    {title: "Reports", link: "/contact" },
-        {title: "Form18", link: "/contact" },
+    {title: "Reports", 
+      submenu:[
+        { title: "Previous Annual Report", link: "/approval-reports" },
+        { title: "Current Monthly  Report", link: "/registration-reports" },
+        { title: "Revnue against Application and Application Summery Report", link: "/renewal-reports" },
+        { title: "Other type of Letters / Reports / Orders List", link: "/amendment-reports" },
+        { title: "Annual Return of Factories", link: "/inspection-reports" },
+        { title: "Online Survey Report", link: "/accident-reports" },
+        { title: "Form-IV", link: "/other-reports" },
+        { title: "All Aplications", link: "/silicosis-reports" },
+      ]
+     },
+        {title: "Form18", link: "/inspector-form18-list" },
         {title: "Inspection Report ", 
           submenu:[
             { title: "Other Type of Letters / Reports / Orders", link: "/other-type-letr-rept-ord" },
@@ -92,7 +104,6 @@ export const user = {
     avatar: "/api/placeholder/80/80" // Replace with actual avatar URL
   };
 
-import { type Factory} from '@/types';
 
   export const factoriesData: Factory[] = [
     {

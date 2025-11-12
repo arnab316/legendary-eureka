@@ -1,132 +1,236 @@
-import React from "react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { navData, subMenuData } from "@/utils";
-import { ProfileSection } from "./ProfileSection";
+{
+    "success": true,
+    "message": "Approval plan details fetched successfully",
+    "statusCode": 200,
+    "data": {
+        "status": 200,
+        "zone_name": "Barrackpore",
+        "zone_id": 20,
+        "cafa_details": [
+            {
+                "cafa_id": 2,
+                "plan_status": "Pending",
+                "n_uid": 152,
+                "n_zone_id": 20,
+                "s_zone_name": "Barrackpore",
+                "n_id": 2,
+                "s_factory_name": "SUFAL BIOTECH AND SUNILA AGROTECH",
+                "s_factory_previous_name": null,
+                "s_trade_license_no": "2167",
+                "s_nearest_landmark": "Doulatpur Playground",
+                "n_factory_zone": 20,
+                "s_pincode": "743272",
+                "n_state": null,
+                "s_district": "11",
+                "s_subdivision": null,
+                "s_areatype": null,
+                "n_block": 111212,
+                "n_panchayat": null,
+                "s_policestation": "PS0110299",
+                "n_postoffice": 3091,
+                "s_addrline": "1No DOULATPUR",
+                "n_reg_adress_same_factory": null,
+                "s_pincodeoff": null,
+                "n_state_off": 1,
+                "s_district_off": null,
+                "s_subdivision_off": null,
+                "s_areatype_off": null,
+                "n_block_off": 111202,
+                "n_panchayat_off": null,
+                "s_policestation_off": null,
+                "n_postoffice_off": 2893,
+                "s_addrline_off": null,
+                "s_factory_pan": "ASJPD9701C",
+                "s_owner_name": null,
+                "s_pincodepremises": null,
+                "n_state_premises": null,
+                "s_district_premises": null,
+                "s_subdivision_premises": null,
+                "s_areatype_premises": null,
+                "n_block_premises": null,
+                "n_panchayat_premises": null,
+                "s_policestation_premises": null,
+                "n_postoffice_premises": null,
+                "s_addrline_premises": null,
+                "dt_date_of_amenability": null,
+                "s_period_for_application": null,
+                "s_plan_approve_identification_number": "CAF250A759209",
+                "s_factory_plan_approval_number": null,
+                "s_factory_reg_number": null,
+                "s_factory_reg_identification_number": null,
+                "n_service_id": 4,
+                "n_factory_typeid": null,
+                "n_remark_by_user_id": null,
+                "n_remark_by_role_id": null,
+                "dt_modification_date": "2025-11-11T10:32:29.859Z",
+                "n_created_by": 152,
+                "dt_created_date": "2025-11-11T10:32:29.859Z",
+                "s_plan_approve_status": null,
+                "s_application_status": null,
+                "n_is_backlog": null,
+                "s_backlog_plan_approval_no": null,
+                "s_backlog_registration_no": null,
+                "s_comm_telephone": null,
+                "s_comm_mobile": null,
+                "s_comm_fax": null,
+                "s_comm_email": null,
+                "n_wbpcb_category_name": 3,
+                "s_wbpcb_reference_no": "WBPCB/7300983/2025",
+                "s_wbpcb_ref_date": "2025-08-26",
+                "n_wbpcb_intimation_letter": null,
+                "n_reference_number": 2,
+                "s_factory_owershiptype": null,
+                "s_plan_conditional_letter_no": null,
+                "s_uploaded_pdf": null,
+                "s_uploaded_letter": null,
+                "s_uploaded_plan": null,
+                "n_approve_dsc_licence_file_id": null,
+                "dt_backlog_plan_approval_date": null,
+                "n_is_year_calculation_tab": null,
+                "n_is_worker_tab": null,
+                "n_approve_dsc_reg_file_id": null,
+                "n_previous_excess_paid": null,
+                "n_is_calculate": null,
+                "n_service_fees": null,
+                "n_payment_amount": null,
+                "s_is_previous_payment": null,
+                "dt_payment_date": null,
+                "s_factory_registrstion_no": null,
+                "s_factory_license_no": null,
+                "dt_registration_date": null,
+                "s_classification_no": null,
+                "s_classification_category": null,
+                "n_tm_appliction_id": null,
+                "n_tm_factory_id": null,
+                "s_tm_application_type": null,
+                "dt_tm_period_from": null,
+                "dt_tm_period_to": null,
+                "n_tm_user_id": null,
+                "s_tm_factory_registration_no": null,
+                "n_tm_application_status": null,
+                "s_tm_occupier_mobile": null,
+                "n_approve_dsc_reg_licence_file_id": null,
+                "s_plant_installed": null,
+                "dt_backlog_registration_date": null,
+                "dt_license_date": null,
+                "s_backlog_license_number": null,
+                "dt_backlog_license_date": null,
+                "s_tm_migrated_flag": "N",
+                "dt_plan_approval_date": null,
+                "n_download_status": null,
+                "n_balance_amount": null,
+                "s_backlog_classification_no": null,
+                "dt_renewal_from_date": null,
+                "s_gstin_no": "19ASJPD9701CIZX",
+                "s_udyog_aadhaar": "WB1400002158",
+                "s_energy_no": null,
+                "s_cin_no": null,
+                "s_addrline_off_other": null,
+                "s_comm_alt_mobile": "9800293150",
+                "s_mouza_name": "Doulatpur",
+                "s_jl_no": "34",
+                "s_country_premises": null,
+                "s_factory_country_address": null,
+                "n_country_code": 99,
+                "s_is_chemical": "1",
+                "s_aadhaar_premises": null,
+                "s_passport_premises": null,
+                "dt_passport_date_of_issue_premises": null,
+                "dt_passport_date_of_expiry_premises": null,
+                "s_street_name_premises": null,
+                "s_house_no_premises": null,
+                "s_police_station_premises": null,
+                "s_owner_mname": null,
+                "s_owner_lname": null,
+                "n_estate_type": 0,
+                "n_reg_adress_same_factory_comm": null,
+                "s_pincodecomm": "743272",
+                "n_state_comm": 1,
+                "s_district_comm": "11",
+                "s_subdivision_comm": null,
+                "s_areatype_comm": null,
+                "n_block_comm": 111212,
+                "n_panchayat_comm": null,
+                "s_policestation_comm": "PS0110299",
+                "n_postoffice_comm": 3091,
+                "s_addrline_comm": "1No DOULATPUR",
+                "n_renewal_dim_appoved": null,
+                "n_period_for_renewal": null,
+                "dt_license_valid_upto": null,
+                "n_previous_license_year": null,
+                "s_approve_dsc_licence_file": null,
+                "s_approve_dsc_reg_licence_file": null,
+                "s_approve_dsc_reg_file": null,
+                "n_is_notesheet_amount": null,
+                "s_backlog_uploaded_letter": null,
+                "s_backlog_uploaded_plan": null,
+                "n_approve_amendment_file_id": null,
+                "dt_license_valid_from": null,
+                "s_total_lic_period": null,
+                "n_appln_wise_excess_amt": null,
+                "s_run_renew_process": null,
+                "s_type_hazardous": null,
+                "s_estate_type_name": "MULTIPLAX",
+                "dt_recomended_date_of_amenability": null,
+                "s_tm_nic_code": null,
+                "s_tm_nic_code_decribtion": null,
+                "n_factor_add_inspector": 0,
+                "n_factor_add_inspector_id": null,
+                "n_is_manager_tab": null,
+                "n_is_occupier_tab": null,
+                "n_issued_from_nic": null,
+                "n_is_owner_tab": null,
+                "s_plan_approve_certificate_file": null,
+                "s_reason": null,
+                "s_after_migration_populated": "N",
+                "s_factory_category": null,
+                "n_is_factory_tab": null,
+                "s_source": null,
+                "dt_amendment_issued_date": null,
+                "s_tm_marked": "N",
+                "n_postoffice_old": null,
+                "s_postoffice_updtd": "N",
+                "n_postoffice_off_old": null,
+                "s_postoffice_off_updtd": "N",
+                "n_postoffice_comm_old": null,
+                "s_postoffice_comm_updtd": "N",
+                "dt_application_first_submission_date": null,
+                "s_factory_add_as": null,
+                "s_resubmitted_rejected": null,
+                "s_status": null,
+                "s_tm_added": "N",
+                "n_balance_amount_was": null,
+                "s_balance_amount_updt_flag": "N",
+                "n_tm_balance_figure": null,
+                "s_tm_balance_figure_updt_flag": "N",
+                "s_unit_subdiv_hq": null,
+                "s_crossed_off_flag_by_portal": "N",
+                "dt_crossed_off_date": null,
+                "dt_factory_previous_name_valid_upto": null,
+                "n_silpasathi_status": null,
+                "dt_sending_time": "2025-11-11T10:32:29.859Z",
+                "s_unit_comm_mobile": "7001018816",
+                "s_unit_type": "PROPRIETORSHIP",
+                "s_unit_category": "Micro",
+                "dt_unit_previous_name_valid_upto": null,
+                "s_plan_status": "AI"
+            }
+        ]
+    }
+}
 
-const Navbar: React.FC = () => {
-  // Mock user data - replace with actual user data from your auth context
-  const user = {
-    name: "AVIJIT BANERJEE",
-    email: "ad25.doflb-wb@gov.in",
-    role: "Inspector of Factories",
-    avatar: "/api/placeholder/80/80" // Replace with actual avatar URL
-  };
 
-  const handleProfileClick = () => {
-    console.log("Profile clicked");
-    // Add your profile navigation logic here
-  };
 
-  const handleSignOutClick = () => {
-    console.log("Sign out clicked");
-    // Add your sign out logic here
-  };
 
-  return (
-    <div className="w-full relative">
-      {/* Top Navigation Bar */}
-      <div className="bg-cyan-500 text-white shadow-md">
-        <div className="container mx-auto flex items-center justify-between px-6 py-3">
-          {/* Navigation Menu */}
-          <NavigationMenu>
-            <NavigationMenuList className="flex gap-1">
-              {navData.map((item, index) => (
-                <NavigationMenuItem key={index}>
-                  {item.submenu ? (
-                    <>
-                      <NavigationMenuTrigger className="bg-transparent text-white hover:bg-cyan-600 data-[state=open]:bg-cyan-600 px-4 py-2 text-base font-normal">
-                        {item.title}
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent className="bg-white text-gray-700 p-2 rounded-md shadow-lg min-w-[240px]">
-                        <ul className="grid gap-1">
-                          {item.submenu.map((sub, subIndex) => (
-                            <li key={subIndex}>
-                              <NavigationMenuLink 
-                                href={sub.link}
-                                className="block px-4 py-2 text-sm hover:bg-gray-100 hover:text-cyan-600 rounded transition-colors"
-                              >
-                                {sub.title}
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
-                    </>
-                  ) : (
-                    <NavigationMenuLink 
-                      href={item.link}
-                      className="px-4 py-2 text-base font-normal hover:bg-cyan-600 rounded transition-colors inline-block"
-                    >
-                      {item.title}
-                    </NavigationMenuLink>
-                  )}
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          {/* Spacer for profile card */}
-          <div className="w-[420px]"></div>
-        </div>
-      </div>
-
-      {/* Sub Navigation Bar */}
-      <div className="bg-purple-900 text-white shadow-md">
-        <div className="container mx-auto px-6">
-          <NavigationMenu>
-            <NavigationMenuList className="flex gap-1">
-              {subMenuData.map((item, index) => (
-                <NavigationMenuItem key={index}>
-                  {item.submenu ? (
-                    <>
-                      <NavigationMenuTrigger className="bg-transparent text-white hover:bg-purple-800 data-[state=open]:bg-purple-800 px-4 py-3 text-sm font-normal">
-                        {item.title}
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent className="bg-white text-gray-700 p-2 rounded-md shadow-lg min-w-[260px]">
-                        <ul className="grid gap-1">
-                          {item.submenu.map((sub, subIndex) => (
-                            <li key={subIndex}>
-                              <NavigationMenuLink 
-                                href={sub.link}
-                                className="block px-4 py-2 text-sm hover:bg-gray-100 hover:text-purple-600 rounded transition-colors"
-                              >
-                                {sub.title}
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
-                    </>
-                  ) : (
-                    <NavigationMenuLink 
-                      href={item.link}
-                      className="px-4 py-3 text-sm font-normal hover:bg-purple-800 rounded transition-colors inline-block"
-                    >
-                      {item.title}
-                    </NavigationMenuLink>
-                  )}
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
-      </div>
-
-      {/* Profile Card - Positioned absolutely */}
-      <ProfileSection 
-        user={user}
-        onProfileClick={handleProfileClick}
-        onSignOutClick={handleSignOutClick}
-      />
-    </div>
-  );
-};
-
-export default Navbar;
+  {
+    id: cafa_id,
+    factoryName: s_factory_name,
+    factoryType: null,
+    section: null,
+    zone: s_zone_name,
+    eService: null,
+    applicationNo: s_plan_approve_identification_number || s_factory_plan_approval_number
+    applicationDate: null,
+    status: null,
+    statusDate: dt_created_date
+  },

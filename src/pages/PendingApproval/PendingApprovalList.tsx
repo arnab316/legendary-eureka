@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Eye, FileText, StickyNote } from 'lucide-react';
 import { Link } from 'react-router-dom'
-// Types
+import ApplicationDetailsView from '../ApplicationDetailsView/ApplicationDetailsView';
+// // Types
 interface Application {
   id: number;
   factoryName: string;
@@ -15,7 +16,7 @@ interface Application {
   statusDate: string;
 }
 
-// Mock Data
+// // Mock Data
 const applicationsData: Application[] = [
   {
     id: 1,
@@ -122,7 +123,15 @@ const PendingApprovalList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [selectedApplication, setSelectedApplication] = useState<string | null>(null);
+  if (selectedApplication) {
+  return (
+    <ApplicationDetailsView 
+      applicationNo={selectedApplication}
+      onBack={() => setSelectedApplication(null)}
+    />
+  );
+}
   // Filter applications based on zone and search
   const filteredApplications = applicationsData.filter(app => {
     const matchesZone = selectedZone === "All Zones" || app.zone === selectedZone;
@@ -291,7 +300,9 @@ const PendingApprovalList: React.FC = () => {
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex flex-col gap-2 text-sm">
-                        <button className="flex items-center gap-1 text-blue-600 hover:text-blue-800">
+                        <button className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                        onClick={() => setSelectedApplication(app.applicationNo)}
+                        >
                           <Eye className="w-4 h-4" />
                           <span>View</span>
                         </button>
@@ -430,3 +441,7 @@ const PendingApprovalList: React.FC = () => {
 };
 
 export default PendingApprovalList;
+
+
+
+

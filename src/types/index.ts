@@ -45,3 +45,15 @@ export interface Factory {
   status: string;
   statusDate: string;
 }
+
+
+export interface LoginState {
+    username: string;
+    password: string;
+    loading: boolean;
+    error: string | null;
+}
+
+
+
+export type personnel_types = 'MANAGER' | 'OWNER' | 'OCCUPIER'|'DIRECTOR';
