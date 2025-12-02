@@ -12,7 +12,7 @@ const initialState: LoginState = {
 // Create an async thunk for login
 export const loginUser = createAsyncThunk(
     'login/loginUser',
-    async (credentials: LoginState) => {
+    async(credentials: LoginState) => {
         // Simulate an API call using axios or fetch
 
         const response = await new Promise<{ success: boolean }>((resolve) => {

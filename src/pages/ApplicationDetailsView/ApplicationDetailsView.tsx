@@ -42,6 +42,7 @@ interface ApplicationHeader {
 
 interface ApplicationDetailsProps {
   applicationNo: string;
+  cafaId: number;
   onBack: () => void;
 }
 

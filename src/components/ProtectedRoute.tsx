@@ -1,28 +1,16 @@
 import { Navigate, Outlet } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const ProtectedRoute = () => {
-  const token = localStorage.getItem("authToken"); 
-
-  if (!token === false) {
-    return <Navigate to="/login" replace />;
+  const token = Cookies.get("token");
+console.log(token);
+  // If token does NOT exist, redirect to login
+  if (!token) {
+    return <Navigate to="/" replace />;
   }
 
+  // If token exists, allow access
   return <Outlet />;
 };
 
 export default ProtectedRoute;
-
-
-// import { Navigate, Outlet } from "react-router-dom";
-// import Cookies from "js-cookie";
-
-// const ProtectedRoute = () => {
-//   const token = Cookies.get("authToken"); 
-
-//   if (token !== "true") {
-//     return <Navigate to="/login" replace />;
-//   }
-//   return <Outlet />;
-// };
-
-// export default ProtectedRoute;

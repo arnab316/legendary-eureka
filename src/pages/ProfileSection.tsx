@@ -1,14 +1,22 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { type ProfileSectionProps} from "@/types/index"
-
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 export const ProfileSection: React.FC<ProfileSectionProps> = ({ 
   user, 
   onProfileClick, 
   onSignOutClick 
 }) => {
+  const navigate=useNavigate();
+  const emailId = Cookies.get("emailId");
+const name = Cookies.get("name");
+const username = Cookies.get("userName");
+ const roleId= Cookies.get("roleId");
+ const role = roleId ? atob(roleId) : "";
+console.log(role);
   return (
-    <div className=" bg-white rounded-lg shadow-lg p-4 z-50 border border-gray-200">
+    <div className=" bg-white rounded-lg shadow-lg p-2 z-50  border-[#3A0065] border-b-2">
       <div className="flex items-center gap-3 mb-4">
         <div className="relative">
           <img 
@@ -18,9 +26,18 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
           />
         </div>
         <div className="text-left">
-          <div className="font-bold text-base leading-tight text-[#A94442]">{user.name}</div>
-          <div className="text-sm text-gray-600">{user.email}</div>
-          <div className="text-sm text-gray-600">{user.role}</div>
+          <div className="font-bold text-base leading-tight text-[#A94442]">{name ? atob(name) : ""}</div>
+          <div className="text-sm text-black">{emailId ? atob(emailId) : ""}</div>
+         <div className="text-sm text-black">
+  {role === "4"
+    ? "Applicant"
+    : role === "9"
+    ? "Inspector of Factories"
+    : role === "7"
+    ? "CMS Manager"
+    : ""}
+</div>
+ <div className="text-sm text-black">{username ? atob(username) : ""}</div>
         </div>
       </div>
       
@@ -28,7 +45,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
       
       <div className="flex gap-3 mt-3">
         <Button 
-          onClick={onProfileClick}
+          onClick={()=>navigate("/user/edit")}
           className="flex-1 bg-red-600 hover:bg-red-700 text-white px-6 py-2 text-sm font-semibold rounded shadow-md"
         >
           Profile

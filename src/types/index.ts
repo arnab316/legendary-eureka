@@ -9,6 +9,20 @@ export interface ProfileSectionProps {
   onSignOutClick?: () => void;
 }
 
+// types.ts
+export type SubMenuItem = {
+  title: string;
+  link: string;
+  isExternal?: boolean; // Optional property for external links
+};
+
+export type MenuItem = {
+  title: string;
+  link: string;
+  isExternal?: boolean; // Optional property for external links
+  submenu?: SubMenuItem[];
+};
+
 
 export const user = {
     name: "AVIJIT BANERJEE",
@@ -44,6 +58,7 @@ export interface Factory {
   email: string;
   status: string;
   statusDate: string;
+  
 }
 
 

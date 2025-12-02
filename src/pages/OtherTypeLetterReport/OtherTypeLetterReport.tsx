@@ -1,27 +1,5 @@
 import React, { useState } from "react";
 import { Eye, FileText, Home } from "lucide-react";
-import { Link } from "react-router-dom";
-
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableHeader,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@/components/ui/table";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 
 // Types
 interface LetterReport {
@@ -121,168 +99,168 @@ const OtherTypeLetterReport: React.FC = () => {
     setHasSearched(false);
   };
 
-  const getStatusVariant = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "pending":
-        return "outline";
-      case "approved":
-        return "default";
-      case "issued":
-        return "secondary";
-      case "rejected":
-        return "destructive";
-      default:
-        return "outline";
-    }
-  };
-
   return (
-    <div className="w-full min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Home className="w-4 h-4" />
-          <span>›</span>
-          <Link to="/" className="text-blue-600 hover:underline">
-            Dashboard
-          </Link>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-semibold text-[#1e3a8a]">
+            Other Type of Letter / Report / Order
+          </h1>
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <Home className="w-4 h-4" />
+            <span>Home</span>
+            <span>›</span>
+            <span className="text-blue-600">Dashboard</span>
+          </div>
         </div>
+      </div>
 
-        {/* Header */}
-        <h1 className="text-3xl font-bold text-[#2c3e7a]">
-          Other Type of Letter / Report / Order
-        </h1>
-
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Search Form */}
-        <Card>
-          <CardHeader className="bg-yellow-50 border-l-4 border-yellow-400">
-            <CardTitle className="text-blue-700 text-base">
-              Search Factory using Factory Name / Licence No. / Registration No.
-            </CardTitle>
-            <CardDescription>
-              You can use any one, two or all three fields to search.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4 mt-4">
-            <div className="grid sm:grid-cols-2 gap-4">
+        <div className="bg-white rounded-lg shadow-sm border mb-6">
+          <div className="bg-yellow-50 border-b border-yellow-200 px-6 py-4">
+            <h2 className="text-base font-medium text-blue-700">
+              Search Factory using Factory Name / Licence No. / Registration No. or any two field or all three field to submit Other Type of Letter / Report / Order
+            </h2>
+          </div>
+
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <Label htmlFor="factoryName">Factory Name</Label>
-                <Input
-                  id="factoryName"
-                  placeholder="Enter Factory Name"
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Factory Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Factory Name"
                   value={factoryName}
                   onChange={(e) => setFactoryName(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <Label htmlFor="licenseNo">Licence No.</Label>
-                <Input
-                  id="licenseNo"
-                  placeholder="Enter Licence No."
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Licence No.
+                </label>
+                <input
+                  type="text"
+                  placeholder="Licence No."
                   value={licenseNo}
                   onChange={(e) => setLicenseNo(e.target.value)}
-                />
-              </div>
-              <div className="sm:col-span-2">
-                <Label htmlFor="registrationNo">Registration No.</Label>
-                <Input
-                  id="registrationNo"
-                  placeholder="Enter Registration No."
-                  value={registrationNo}
-                  onChange={(e) => setRegistrationNo(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
 
-            <div className="flex gap-4 mt-6">
-              <Button onClick={handleSearch} className="bg-cyan-600 hover:bg-cyan-700">
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Registration No.
+              </label>
+              <input
+                type="text"
+                placeholder="Registration No."
+                value={registrationNo}
+                onChange={(e) => setRegistrationNo(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleSearch}
+                className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-md font-medium transition-colors"
+              >
                 Search
-              </Button>
-              <Button variant="secondary" onClick={handleReset}>
+              </button>
+              <button
+                onClick={handleReset}
+                className="px-6 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-md font-medium transition-colors"
+              >
                 Reset
-              </Button>
+              </button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* Results */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Search Results</CardTitle>
-          </CardHeader>
-          <Separator />
-          <CardContent className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Sl. No.</TableHead>
-                  <TableHead>Factory Details</TableHead>
-                  <TableHead>Addressed To & Subject</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Action</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+        {/* Results Table */}
+        <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-teal-600 text-white">
+                  <th className="px-4 py-3 text-left text-sm font-medium">Sl. No.</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Factory Details</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Whom to be Addressed & Subject</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Type</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
+                  <th className="px-4 py-3 text-left text-sm font-medium">Action</th>
+                </tr>
+              </thead>
+              <tbody>
                 {!hasSearched ? (
-                  <TableRow>
-                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
-                      Please enter search criteria and click Search
-                    </TableCell>
-                  </TableRow>
-                ) : searchResults.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={6} className="text-center text-gray-500 py-8">
+                  <tr>
+                    <td colSpan={6} className="px-4 py-12 text-center text-gray-500">
                       No data found!
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
+                ) : searchResults.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-12 text-center text-gray-500">
+                      No data found!
+                    </td>
+                  </tr>
                 ) : (
                   searchResults.map((item, index) => (
-                    <TableRow key={item.id}>
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell>
-                        <p className="font-semibold">{item.factoryName}</p>
-                        <p className="text-sm text-muted-foreground">
+                    <tr key={item.id} className="border-b hover:bg-gray-50">
+                      <td className="px-4 py-3 text-sm">{index + 1}</td>
+                      <td className="px-4 py-3">
+                        <p className="font-semibold text-sm">{item.factoryName}</p>
+                        <p className="text-xs text-gray-600">
                           [{item.factoryType}] — {item.zone}
                         </p>
-                      </TableCell>
-                      <TableCell>
+                      </td>
+                      <td className="px-4 py-3">
                         <p className="text-sm">
                           <strong>To:</strong> {item.addressedTo}
                         </p>
                         <p className="text-sm">
                           <strong>Subject:</strong> {item.subject}
                         </p>
-                      </TableCell>
-                      <TableCell>{item.type}</TableCell>
-                      <TableCell>
-                        <Badge variant={getStatusVariant(item.status)}>
+                      </td>
+                      <td className="px-4 py-3 text-sm">{item.type}</td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-block px-2 py-1 text-xs font-medium rounded ${
+                          item.status === "Pending" ? "bg-yellow-100 text-yellow-800" :
+                          item.status === "Approved" ? "bg-green-100 text-green-800" :
+                          item.status === "Issued" ? "bg-blue-100 text-blue-800" :
+                          "bg-gray-100 text-gray-800"
+                        }`}>
                           {item.status}
-                        </Badge>
-                        <div className="text-xs text-gray-500">{item.statusDate}</div>
-                      </TableCell>
-                      <TableCell>
+                        </span>
+                        <div className="text-xs text-gray-500 mt-1">{item.statusDate}</div>
+                      </td>
+                      <td className="px-4 py-3">
                         <div className="flex gap-2">
-                          <Button variant="link" size="sm" className="text-blue-600">
-                            <Eye className="w-4 h-4 mr-1" /> View
-                          </Button>
-                          <Button variant="link" size="sm" className="text-blue-600">
-                            <FileText className="w-4 h-4 mr-1" /> Details
-                          </Button>
+                          <button className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1">
+                            <Eye className="w-4 h-4" /> View
+                          </button>
+                          <button className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1">
+                            <FileText className="w-4 h-4" /> Details
+                          </button>
                         </div>
-                      </TableCell>
-                    </TableRow>
+                      </td>
+                    </tr>
                   ))
                 )}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default OtherTypeLetterReport;
-
-
