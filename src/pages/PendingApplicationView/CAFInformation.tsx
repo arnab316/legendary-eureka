@@ -143,7 +143,7 @@ useEffect(() => {
 
     try {
       const res = await getOccupierDetails({
-        app_id: 14,
+        app_id: app.cafa_id,
         personnel_type: "OCCUPIER",
       });
 
@@ -168,7 +168,7 @@ const fetchOwnerDetails = async () => {
 
     try {
       const res = await getOccupierDetails({
-        app_id: 14,
+        app_id: app.cafa_id,
         personnel_type: "OWNER",
       });
 
@@ -183,23 +183,6 @@ const fetchOwnerDetails = async () => {
 
     setLoading(false);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const applicationId = searchParams.get("applicationId");
 
@@ -747,8 +730,8 @@ const userId = Cookies.get("userId");
               label="Occupier Details"
               value="View Occupier Details"
               onValueClick={() => setOpenModal(true)}
-              checked={isFieldChecked('n_factory_zone')}
-              onCheck={() => handleFieldCheck('n_factory_zone')}
+              checked={isFieldChecked('n_occupier_details')}
+              onCheck={() => handleFieldCheck('n_occupier_details')}
             />
           </Section>
 
@@ -758,8 +741,8 @@ const userId = Cookies.get("userId");
               label="Owner Details"
               onValueClick={() => setOpenModal1(true)}
               value="View Owner Details"
-              checked={isFieldChecked('s_factory_name')}
-              onCheck={() => handleFieldCheck('s_factory_name')}
+              checked={isFieldChecked('s_owner_details')}
+              onCheck={() => handleFieldCheck('s_owner_details')}
             />
           </Section>
 

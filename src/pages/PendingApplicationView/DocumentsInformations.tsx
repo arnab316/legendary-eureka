@@ -1,376 +1,147 @@
-// import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import type { RootState, AppDispatch } from "@/store";
-// import { fetchSupportiveDocs } from "@/store/feature/PendingApplication/supportiveDocsSlice";
-// import { fetchApplicationById } from "@/store/feature/PendingApplication/selectedApplicationSlice";
-// import { getStatus } from "@/utils/index";
-// import Cookies from "js-cookie";
-// import apiClient from "@/api/apiClient";
-// import { Loader2 } from "lucide-react";
-// import ApplicationHeader from "@/components/PendingApplicationViewText";
-
-// const DocumentsInformations: React.FC = () => {
-//   const dispatch = useDispatch<AppDispatch>();
-//   const navigate = useNavigate();
-  
-//   const { selected: app, loading: appLoading } = useSelector(
-//     (state: RootState) => state.selectedApplication
-//   );
-
-//   const { docs, docsLoading, docsError } = useSelector(
-//     (state: RootState) => state.supportiveDocs
-//   );
-
-//   const [checkedDocs, setCheckedDocs] = useState<{ [key: number]: boolean }>({});
-//   const [checkAll, setCheckAll] = useState(false);
-//   const [saveLoading, setSaveLoading] = useState(false);
-
-//   // Fetch application data on mount/refresh
-//   useEffect(() => {
-//     const stored = getStatus();
-//     const roleId: any = Cookies.get("roleId");
-    
-//     if (!app && stored) {
-//       dispatch(fetchApplicationById({ 
-//         username: "robi_ins", 
-//         filter: stored.filter, 
-//         id: stored.id,
-//         n_remark_by_roleid: Number(atob(roleId))
-//       }));
-//     }
-//   }, [dispatch, app]);
-
-//   // Fetch supportive docs when app is available
-// useEffect(() => {
-//   if (app) {
-//     const roleId: any = Cookies.get("roleId");
-
-//     dispatch(
-//       fetchSupportiveDocs({
-//         cafa_id: app.s_plan_approve_identification_number,
-//         id: app.n_id,
-//         n_remark_by_roleid: Number(atob(roleId)),
-//       })
-//     );
-//   }
-// }, [dispatch, app]);
-
-//   // Update row checkboxes when "Check All" toggles
-//   useEffect(() => {
-//     if (docs.length > 0) {
-//       const updated = docs.reduce((acc, _, n_id) => {
-//         acc[n_id] = checkAll;
-//         return acc;
-//       }, {} as { [key: number]: boolean });
-
-//       setCheckedDocs(updated);
-//     }
-//   }, [checkAll, docs]);
-
-//   const handleSingleCheck = (index: number) => {
-//     setCheckedDocs((prev) => {
-//       const updated = { ...prev, [index]: !prev[index] };
-
-//       // If ANY unchecked → uncheck All
-//       const allChecked = docs.length > 0 && Object.values(updated).every((v) => v === true);
-//       setCheckAll(allChecked);
-
-//       return updated;
-//     });
-//   };
-
-//   // Handle check all toggle
-//   const handleCheckAll = () => {
-//     setCheckAll((prev) => !prev);
-//   };
-
-//   // Get checked documents for saving
-//   const getCheckedDocuments = () => {
-//     return docs
-//       .filter((_, index) => checkedDocs[index])
-//       .map((doc) => doc.s_document_name);
-//   };
-
-//   // Handle save
-//   const handleSave = async () => {
-//     if (!app) return;
-
-//     const checkedDocuments = getCheckedDocuments();
-//     console.log('Saving checked documents:', checkedDocuments);
-
-//     try {
-//       setSaveLoading(true);
-
-//       const token = Cookies.get("token");
-//       const roleId: any = Cookies.get("roleId");
-
-//       if (!token) throw new Error("No authentication token found");
-
-//       // Build request body - adjust according to your API requirements
-//       const requestBody = {
-//         u_id: app.n_uid,
-//         verified_list: checkedDocuments,
-//         n_service_id: app.n_service_id,
-//         n_factory_typeid: app.n_factory_typeid,
-//         n_id: app.cafa_id,
-//         n_reference_number: app.n_reference_number,
-//         n_rid: Number(atob(roleId)),
-//         cafa_id:app.cafa_id,
-//       };
-
-//       console.log('Request body:', requestBody);
-
-//       // TODO: Update the endpoint according to your API
-//       const response = await apiClient.post(
-//         '/user/verify-supportive_docs_approval_plan',
-//         requestBody,
-//         { headers: { Authorization: `${token}` } }
-//       );
-
-//       if (response.data.success) {
-//         console.log('Save successful:', response.data);
-//         alert('Documents verified successfully!');
-//       } else {
-//         throw new Error(response.data.message || 'Failed to save documents');
-//       }
-//     } catch (error: any) {
-//       console.error('Save error:', error);
-//       alert(error.message || 'Failed to save documents');
-//     } finally {
-//       setSaveLoading(false);
-//     }
-//   };
-
-//   // Handle back
-//   const handleBack = () => {
-//     navigate(-1);
-//   };
-
-//   // Loading state for app
-//   if (appLoading) {
-//     return (
-//       <div className="p-6 flex items-center justify-center min-h-[300px]">
-//         <div className="text-center">
-//           <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-2" />
-//           <p className="text-gray-600">Loading application data...</p>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   // No app data state
-//   if (!app) {
-//     return (
-//       <div className="p-6 flex items-center justify-center min-h-[300px]">
-//         <div className="text-center">
-//           <p className="text-gray-600 mb-4">No application data found.</p>
-//           <button 
-//             onClick={handleBack}
-//             className="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800 transition-colors"
-//           >
-//             Back to list
-//           </button>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="p-6">
-//       <ApplicationHeader />
-//       <h2 className="text-xl font-semibold mb-4">
-//         Supportive Documents According to Application
-//       </h2>
-
-//       {docsLoading && (
-//         <div className="flex items-center gap-2 text-blue-600 mb-4">
-//           <Loader2 className="w-5 h-5 animate-spin" />
-//           <span>Loading documents...</span>
-//         </div>
-//       )}
-//       {docsError && <p className="text-red-600 mb-4">{docsError}</p>}
-
-//       {/* Table */}
-//       <div className="overflow-x-auto border rounded shadow bg-white">
-//         <table className="w-full border-collapse">
-//           <thead className="bg-[#0c4562] text-white">
-//             <tr>
-//               <th className="p-3 border text-left">S.No</th>
-//               <th className="p-3 border text-left">Document Name</th>
-//               <th className="p-3 border text-center">
-//                 <div className="flex items-center justify-center gap-2">
-//                   <span>Action</span>
-//                   <input
-//                     type="checkbox"
-//                     checked={checkAll}
-//                     onChange={handleCheckAll}
-//                     className="w-4 h-4 cursor-pointer"
-//                     disabled={docs.length === 0}
-//                   />
-//                 </div>
-//               </th>
-//             </tr>
-//           </thead>
-
-//           <tbody>
-//             {docs.length === 0 && !docsLoading ? (
-//               <tr>
-//                 <td colSpan={3} className="p-4 text-center text-gray-500">
-//                   No documents found
-//                 </td>
-//               </tr>
-//             ) : (
-//               docs.map((doc, index) => (
-//                 <tr key={index} className="border-b hover:bg-gray-50">
-//                   <td className="p-3 border">{index + 1}</td>
-//                   <td className="p-3 border">{doc.s_document_name}</td>
-//                   <td className="p-3 border text-center">
-//                     <input
-//                       type="checkbox"
-//                       checked={checkedDocs[index] || false}
-//                       onChange={() => handleSingleCheck(doc.n_id)}
-//                       className="w-4 h-4 cursor-pointer"
-//                     />
-//                   </td>
-//                 </tr>
-//               ))
-//             )}
-//           </tbody>
-//         </table>
-//       </div>
-
-//       {/* Action Buttons */}
-//       <div className="mt-4 flex justify-between items-center">
-//         <button 
-//           onClick={handleBack}
-//           className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition-colors"
-//         >
-//           Back to list
-//         </button>
-        
-//         <button 
-//           onClick={handleSave}
-//           disabled={saveLoading || docs.length === 0}
-//           className="bg-teal-600 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-//         >
-//           {saveLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-//           {saveLoading ? 'Saving...' : 'Save'}
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DocumentsInformations;
-
 import React, { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, ExternalLink } from "lucide-react";
 import ApplicationHeader from "@/components/PendingApplicationViewText";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import apiClient from "@/api/apiClient";
-
-/* ----------------------------------------------
-   STATIC JSON DATA
----------------------------------------------- */
-const staticData = {
-  user: {
-    u_id: 341,
-    n_service_id: 4,
-    n_factory_typeid: 1,
-    n_id: 14,
-    n_reference_number: 14,
-    n_rid: 9,
-    cafa_id: "CAF250A759209",
-  },
-
-  documents: [
-    {
-      id: 25,
-      document_name: "Factory Layout Plan",
-      file_path: "/Documents/Uploads/CAF250A759209/factory-layout.pdf",
-      checked: true,
-    },
-    {
-      id: 27,
-      document_name: "Machinery List",
-      file_path: "/Documents/Uploads/CAF250A759209/machinery-list.pdf",
-      checked: false,
-    },
-  ],
-};
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSupportiveDocs } from "@/store/feature/PendingApplication/supportiveDocsSlice";
+import type { RootState, AppDispatch } from "@/store/index";
 
 const DocumentsInformations: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { selected: app, loading, error } = useSelector(
+    (state: RootState) => state.selectedApplication
+  );
 
-  const [docs] = useState(staticData.documents);
+  /* -----------------------------------------
+     STATIC USER INPUT (Replace later)
+  ----------------------------------------- */
+  const roleId = Cookies.get("roleId")
+    ? atob(Cookies.get("roleId") as string)
+    : null;
+  const roleIdUser = roleId ? Number(roleId) : 0;
+  const params = {
+    service_id: app.n_service_id,
+    factory_type_id: app.n_factory_typeid,
+    application_id: app.n_tm_factory_id,
+    role_id: roleIdUser,
+    userid: app.n_uid,
+    reference_no: app.n_reference_number,
+    cafa_id:
+      app.s_plan_approve_identification_number ||
+      app.s_factory_plan_approval_number,
+  };
+
+  /* -----------------------------------------
+     REDUX STATE - PROPERLY TYPED
+  ----------------------------------------- */
+  const { docs, docsLoading, docsError } = useSelector(
+    (state: RootState) => state.supportiveDocs
+  );
+
+  /* -----------------------------------------
+     LOCAL CHECKBOX STATE
+  ----------------------------------------- */
   const [checkedDocs, setCheckedDocs] = useState<Record<number, boolean>>({});
   const [checkAll, setCheckAll] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
 
-  /* ---------------------------------------------------
-     SET DEFAULT CHECK VALUES FROM STATIC JSON
-  --------------------------------------------------- */
+  /* -----------------------------------------
+     FETCH DOCUMENTS FROM API (Thunk)
+  ----------------------------------------- */
   useEffect(() => {
-    const initial = docs.reduce((acc, doc) => {
-      acc[doc.id] = doc.checked;
-      return acc;
-    }, {} as Record<number, boolean>);
+    dispatch(fetchSupportiveDocs(params));
+  }, [dispatch]);
 
-    setCheckedDocs(initial);
-    setCheckAll(Object.values(initial).every(Boolean));
+  /* -----------------------------------------
+     Once docs loaded → Initialize checkbox state
+  ----------------------------------------- */
+  useEffect(() => {
+    if (docs.length > 0) {
+      const initial = docs.reduce((acc: Record<number, boolean>, doc) => {
+        acc[doc.n_doc_master_id] = doc.isChecked;
+        return acc;
+      }, {});
+      setCheckedDocs(initial);
+      setCheckAll(Object.values(initial).every(Boolean));
+    }
   }, [docs]);
 
-  /* ---------------------------------------------------
-     Toggle single checkbox
-  --------------------------------------------------- */
-  const handleSingleCheck = (id: number) => {
+  /* -----------------------------------------
+     Toggle single checkbox (only if not disabled)
+  ----------------------------------------- */
+  const handleSingleCheck = (id: number, isDisabled: boolean) => {
+    if (isDisabled) return; // Don't allow checking if disabled
+
     setCheckedDocs((prev) => {
       const updated = { ...prev, [id]: !prev[id] };
+      console.log("updated ",updated);
+      
       setCheckAll(Object.values(updated).every(Boolean));
       return updated;
     });
   };
 
-  /* ---------------------------------------------------
-     Toggle Check All
-  --------------------------------------------------- */
+  /* -----------------------------------------
+     Toggle Check All (only for non-disabled docs)
+  ----------------------------------------- */
   const handleCheckAll = () => {
     const value = !checkAll;
     setCheckAll(value);
 
-    const updated = docs.reduce((acc, doc) => {
-      acc[doc.id] = value;
+    const updated = docs.reduce((acc: Record<number, boolean>, doc) => {
+      // Only update if not disabled
+      if (!doc.disable) {
+        acc[doc.n_doc_master_id] = value;
+      } else {
+        acc[doc.n_doc_master_id] = checkedDocs[doc.n_doc_master_id] || false;
+      }
       return acc;
-    }, {} as Record<number, boolean>);
-
+    }, {});
     setCheckedDocs(updated);
   };
 
-  /* ---------------------------------------------------
-     FIXED: API PAYLOAD EXACTLY AS BACKEND EXPECTS
-  --------------------------------------------------- */
+  /* -----------------------------------------
+     Handle Document Click - Open file if path exists
+  ----------------------------------------- */
+  const handleDocumentClick = (filePath: string | null) => {
+    if (!filePath) return;
+
+    // Convert Windows path to URL-friendly format
+    // Example: C:\Users\user\Documents\Uploads\file.pdf
+    // You'll need to configure this based on your server setup
+    const fileUrl = `/api/files/${encodeURIComponent(filePath)}`;
+    
+    // Open in new window/tab
+    window.open(fileUrl, "_blank");
+  };
+
+  /* -----------------------------------------
+     Build SAVE Payload
+  ----------------------------------------- */
   const buildPayload = () => {
     const verifiedList = docs
-      .filter((doc) => checkedDocs[doc.id])
-      .map((doc) => doc.id);
+      .filter((doc) => checkedDocs[doc.n_doc_master_id])
+      .map((doc) => doc.n_doc_master_id);
 
     return {
-      u_id: staticData.user.u_id,
+      u_id: params.userid,
       verified_list: verifiedList,
-      n_service_id: staticData.user.n_service_id,
-      n_factory_typeid: staticData.user.n_factory_typeid,
-      n_id: staticData.user.n_id,
-      n_reference_number: staticData.user.n_reference_number,
-      n_rid: staticData.user.n_rid,
-      cafa_id: staticData.user.cafa_id,
+      n_service_id: params.service_id,
+      n_factory_typeid: params.factory_type_id,
+      n_id: params.application_id,
+      n_reference_number: params.reference_no,
+      n_rid: params.role_id,
+      cafa_id: params.cafa_id,
     };
   };
 
-  /* ---------------------------------------------------
-     SAVE → POST API
-  --------------------------------------------------- */
+  /* -----------------------------------------
+     SAVE API CALL (Not Redux — only a POST action)
+  ----------------------------------------- */
   const handleSave = async () => {
     const payload = buildPayload();
     console.log("PAYLOAD SENT:", payload);
@@ -379,7 +150,7 @@ const DocumentsInformations: React.FC = () => {
       setSaveLoading(true);
 
       const token = Cookies.get("token");
-      if (!token) throw new Error("Authentication token missing");
+      if (!token) throw new Error("Token missing");
 
       const response = await apiClient.post(
         "/user/verify-supportive_docs_approval_plan",
@@ -387,21 +158,25 @@ const DocumentsInformations: React.FC = () => {
         { headers: { Authorization: token } }
       );
 
+      setSaveLoading(false);
+
       if (response.data.success) {
         alert("Documents successfully verified!");
       } else {
         alert(response.data.message || "Failed to save");
       }
-    } catch (err: any) {
+    } catch (err) {
       setSaveLoading(false);
+      console.error("Error while saving:", err);
+      alert("Error while saving");
     }
   };
 
   const handleBack = () => navigate(-1);
 
-  /* ---------------------------------------------------
+  /* -----------------------------------------
      UI
-  --------------------------------------------------- */
+  ----------------------------------------- */
   return (
     <div className="p-6">
       <ApplicationHeader />
@@ -410,46 +185,103 @@ const DocumentsInformations: React.FC = () => {
         Supportive Documents According to Application
       </h2>
 
-      <div className="overflow-x-auto border rounded shadow bg-white">
-        <table className="w-full border-collapse">
-          <thead className="bg-[#0c4562] text-white">
-            <tr>
-              <th className="p-3 border">S.No</th>
-              <th className="p-3 border text-left">Document Name</th>
-              <th className="p-3 border text-center">
-                <div className="flex justify-center items-center gap-2">
-                  <span>Action</span>
-                  <input
-                    type="checkbox"
-                    checked={checkAll}
-                    onChange={handleCheckAll}
-                    className="w-4 h-4 cursor-pointer"
-                  />
-                </div>
-              </th>
-            </tr>
-          </thead>
+      {/* ERROR MESSAGE */}
+      {docsError && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          Error: {docsError}
+        </div>
+      )}
 
-          <tbody>
-            {docs.map((doc, index) => (
-              <tr key={doc.id} className="hover:bg-gray-50 border-b">
-                <td className="p-3 border">{index + 1}</td>
-                <td className="p-3 border">{doc.document_name}</td>
-                <td className="p-3 border text-center">
-                  <input
-                    type="checkbox"
-                    checked={checkedDocs[doc.id] || false}
-                    onChange={() => handleSingleCheck(doc.id)}
-                    className="w-4 h-4 cursor-pointer"
-                  />
-                </td>
+      {/* LOADING UI */}
+      {docsLoading ? (
+        <div className="flex justify-center py-10">
+          <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
+        </div>
+      ) : docs.length === 0 ? (
+        <div className="text-center py-10 text-gray-500">
+          No documents found
+        </div>
+      ) : (
+        <div className="overflow-x-auto border rounded shadow bg-white">
+          <table className="w-full border-collapse">
+            <thead className="bg-[#0c4562] text-white">
+              <tr>
+                <th className="p-3 border">S.No</th>
+                <th className="p-3 border text-left">Document Name</th>
+                <th className="p-3 border text-center">
+                  <div className="flex justify-center items-center gap-2">
+                    <span>Action</span>
+                    <input
+                      type="checkbox"
+                      checked={checkAll}
+                      onChange={handleCheckAll}
+                      className="w-4 h-4 cursor-pointer"
+                    />
+                  </div>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
 
-      {/* Buttons */}
+            <tbody>
+              {docs.map((doc, index) => {
+                const hasFile = doc.s_file_path && doc.s_file_path.trim() !== "";
+                // const isDisabled = doc.disable || false;
+               const isDisabled = true
+                return (
+                  <tr key={doc.n_doc_master_id} className="hover:bg-gray-50 border-b"
+                  
+                  >
+                    <td className="p-3 border">{index + 1}</td>
+                    
+                    {/* Document Name - Clickable if file exists */}
+                    <td className="p-3 border">
+                      {hasFile ? (
+                        <button
+                          onClick={() => handleDocumentClick(doc.s_file_path)}
+                          className="text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2 transition-colors"
+                        >
+                          <span>{doc.s_document_name}</span>
+                          <ExternalLink className="w-4 h-4" />
+                        </button>
+                      ) : (
+                        <span className="text-gray-700">
+                          {doc.s_document_name}
+                        </span>
+                      )}
+                    </td>
+
+                    {/* Checkbox - Disabled if disable flag is true */}
+                    <td className="p-3 border text-center">
+                      {/* <input
+                        type="checkbox"
+                        checked={checkedDocs[doc.n_id.n_doc_master_id] || false}
+                        onChange={() => handleSingleCheck(doc.n_id.n_doc_master_id, isDisabled)}
+                        disabled={isDisabled}
+                        className={`w-4 h-4 ${
+                          !isDisabled
+                            ? "cursor-not-allowed opacity-50"
+                            : "cursor-pointer"
+                        }`}
+                        title={isDisabled ? "This document cannot be modified" : ""}
+                      /> */}
+                      <input
+  type="checkbox"
+  checked={checkedDocs[doc.n_doc_master_id] || false}
+  onChange={() => handleSingleCheck(doc.n_doc_master_id, false)}
+  className="w-4 h-4 cursor-pointer"
+/>
+
+
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* BUTTONS */}
       <div className="mt-4 flex justify-between">
         <button
           onClick={handleBack}
@@ -460,7 +292,7 @@ const DocumentsInformations: React.FC = () => {
 
         <button
           onClick={handleSave}
-          disabled={saveLoading}
+          disabled={saveLoading || docs.length === 0}
           className="bg-teal-600 text-white px-6 py-2 rounded hover:bg-teal-700 disabled:opacity-50 flex items-center gap-2"
         >
           {saveLoading && <Loader2 className="w-4 h-4 animate-spin" />}
@@ -472,4 +304,3 @@ const DocumentsInformations: React.FC = () => {
 };
 
 export default DocumentsInformations;
-

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:4000/",
+  baseURL: "https://factory-be.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },

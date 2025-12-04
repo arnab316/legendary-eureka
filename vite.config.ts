@@ -13,6 +13,9 @@ export default defineConfig({
   },
   server:{
     allowedHosts: ['.ngrok-free.dev']
+  },
+  esbuild: {
+    pure: ["console.log"]
   }
 
 })
